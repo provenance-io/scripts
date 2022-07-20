@@ -16,3 +16,4 @@ TO_ADDRESS=$(./get_address.sh $TO_NODE)
 --gas-adjustment 1.5 \
 --gas-prices 1905nhash \
 --from $FROM_ADDRESS \
+-y

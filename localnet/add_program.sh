@@ -31,3 +31,4 @@ ACTIONS="${9:-$DELEGATE}"
 --gas-adjustment 1.5 \
 --gas-prices 1905nhash \
 --from $ADDRESS \
+-y
