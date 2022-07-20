@@ -1,0 +1,34 @@
+# NOTE
+The first argument is always the node to execute it on
+A transaction will always be signed by the node it is executed on
+
+# Provenance
+All commands are built off of this script. This allows the user to run a cli command on the specified node.
+
+./provenance.sh 0 q bank balances tp1hvz9eddza877xw3vxcy8fmfj9d7jm62fzdu66d -t --home ./node0
+
+# Qualifying Actions
+These are commands used to create JSON objects for the qualifying action.
+
+./create_transfer_action.sh 0 1 0
+./create_vote_action.sh 0 1 0
+./create_delegate_action.sh 0 1 2 3 4 5
+
+# Reward Programs
+Examples of creating reward programs. Additional qualifying actions can be added by appending the list with a comma followed by the json.
+
+./add_program.sh 0 10000000000000 10000000000000 3 1 2 2 2022-07-21 '{"transfer":{"minimum_actions":"0","maximum_actions":"1","minimum_delegation_amount":{"denom":"nhash","amount":"1000"}}}'
+./add_program.sh 0 10000000000000 10000000000000 3 1 2 2 2023-07-21 '{"transfer":{"minimum_actions":"0","maximum_actions":"1","minimum_delegation_amount":{"denom":"nhash","amount":"1000"}}}'
+
+# Transactions
+Examples of some transaction scripts.
+
+./transfer.sh 0 1 1000nhash
+./claim_reward.sh 0 1
+
+# Queries
+Examples of some query scripts.
+
+./query_reward.sh 0 all
+./balance.sh 0
+./query_claims.sh 0 all
