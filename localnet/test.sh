@@ -1,32 +1,13 @@
 #!/bin/bash
-SLEEP_TIME=30
+source ./common_test.sh
 
-function print_program_status() {
-    ./query_reward.sh 0 all
-    echo "==============================================="
-    ./query_claims.sh 0 all
-    echo "==============================================="
-}
-
-function wait_for_next_day() {
-    echo "==============================================="
-    TOMORROW=$(date -v+1d +%F)
-    ./set_date.sh $TOMORROW
-    echo "Advancing time to $TOMORROW"
-    sleep $SLEEP_TIME
-    print_program_status
-}
 # Get the balance of node0
 # Create a reward program to start tomorrow from node0
 # Check the Reward Program for pending
-./balance.sh 0
-echo "==============================================="
 TOMORROW=$(date -v+1d +%F)
-./add_program.sh 0 100000000000000 100000000000000 3 1 1 1 $TOMORROW '{"transfer":{"minimum_actions":"0","maximum_actions":"1","minimum_delegation_amount":{"denom":"nhash","amount":"1000"}}}'
-echo "==============================================="
+run add_program 0 100000000000000 100000000000000 3 1 1 1 $TOMORROW '{"transfer":{"minimum_actions":"0","maximum_actions":"1","minimum_delegation_amount":{"denom":"nhash","amount":"1000"}}}'
 print_program_status
-./balance.sh 0
-echo "==============================================="
+run balance 0
 
 # The purpose of this day is to make a successful transfer and to view how it impacts RewardProgram
 # Advance one day
@@ -40,14 +21,10 @@ echo "==============================================="
 # Attempt to make claim for period 1
 # Check the Reward Program
 wait_for_next_day
-./transfer.sh 1 2 1000nhash
-echo "==============================================="
-./balance.sh 0
-echo "==============================================="
-./balance.sh 1
-echo "==============================================="
-./claim_reward.sh 1 1
-echo "==============================================="
+run transfer 1 2 1000nhash
+run balance 0
+run balance 1
+run claim_reward 1 1
 print_program_status
 
 # The purpose of this day is to make a successful claim and another successful transfer.
@@ -64,20 +41,13 @@ print_program_status
 # Get the balance of node1
 # Get the balance of node2
 wait_for_next_day
-./claim_reward.sh 1 1
-echo "==============================================="
-./balance.sh 1
-echo "==============================================="
-./transfer.sh 1 2 1000nhash
-echo "==============================================="
-./transfer.sh 2 3 1000nhash
-echo "==============================================="
-./balance.sh 1
-echo "==============================================="
-./balance.sh 2
-echo "==============================================="
-./balance.sh 3
-echo "==============================================="
+run claim_reward 1 1
+run balance 1
+run transfer 1 2 1000nhash
+run transfer 2 3 1000nhash
+run balance 1
+run balance 2
+run balance 3
 print_program_status
 
 # The purpose of this day is to ensure we have funds for a rollover
@@ -97,20 +67,13 @@ wait_for_next_day
 # Get the balance of node1
 # Get the balance of node2
 wait_for_next_day
-./transfer.sh 1 2 1000nhash
-echo "==============================================="
-./balance.sh 1
-echo "==============================================="
-./balance.sh 2
-echo "==============================================="
-./claim_reward.sh 1 1
-echo "==============================================="
-./claim_reward.sh 2 1
-echo "==============================================="
-./balance.sh 1
-echo "==============================================="
-./balance.sh 2
-echo "==============================================="
+run transfer 1 2 1000nhash
+run balance 1
+run balance 2
+run claim_reward 1 1
+run claim_reward 2 1
+run balance 1
+run balance 2
 print_program_status
 
 # The purpose of this is to test we can go into finished state
@@ -132,12 +95,9 @@ wait_for_next_day
 # Check the balance of node1
 # Check the balance of node0
 wait_for_next_day
-./claim_reward.sh 1 1
-echo "==============================================="
-./balance.sh 1
-echo "==============================================="
-./balance.sh 0
-echo "==============================================="
+run claim_reward 1 1
+run balance 1
+run balance 0
 print_program_status
 
 # reset time
