@@ -16,7 +16,7 @@ source ./common_test.sh
 run set_date
 
 # Create a Reward Program that starts tomorrow
-TOMORROW=$(date -v+1d +%F)
+TOMORROW=$(date -u -v+1d '+%Y-%m-%dT%H:%M:%SZ')
 ROLLOVER=1
 run add_program 0 100000000000000 10000000000 1 1 1 $ROLLOVER $TOMORROW '{"transfer":{"minimum_actions":"0","maximum_actions":"1","minimum_delegation_amount":{"denom":"nhash","amount":"1000"}}}'
 run balance 0

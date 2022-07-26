@@ -18,7 +18,7 @@ function print_program_status() {
 }
 
 function wait_for_next_day() {
-    TOMORROW=$(date -v+1d +%F)
+    TOMORROW=$(date -u -v+1d '+%Y-%m-%dT%H:%M:%SZ')
     run set_date $TOMORROW
     echo "Advancing time to $TOMORROW"
     sleep $SLEEP_TIME

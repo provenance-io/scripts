@@ -1,5 +1,5 @@
 # DEFAULTS
-TOMORROW=$(date -v+1d +%F)  # 2022-07-20
+TOMORROW=$(date -u -v+1d '+%Y-%m-%dT%H:%M:%SZ')
 STRING=$(echo $RANDOM | md5sum | head -c 20)
 DELEGATE=$(./create_delegate_action.sh)
 
