@@ -23,8 +23,7 @@ run transfer 1 2 1000nhash
 
 # FINISHED
 wait_for_next_day
-run claim_reward 1 1
-run claim_reward 1 2
+run claim_reward 1 all
 
 # EXPIRED
 wait_for_next_day
