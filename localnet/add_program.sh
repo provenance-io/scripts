@@ -1,6 +1,6 @@
 # DEFAULTS
 TOMORROW=$(date -u -v+1d '+%Y-%m-%dT%H:%M:%SZ')
-STRING=$(echo $RANDOM | md5sum | head -c 20)
+STRING=$(echo "$RANDOM" | md5sum | head -c 20)
 DELEGATE=$(./create_delegate_action.sh)
 
 # Input
@@ -20,15 +20,15 @@ ACTIONS="${9:-$DELEGATE}"
 -t \
 --total-reward-pool "${TOTAL_POOL}nhash" \
 --max-reward-by-address "${MAX_REWARD}nhash" \
---start-time $START \
---claim-periods $PERIODS \
---claim-period-days $PERIOD_LENGTH \
---expire-days $EXPIRE \
---max-rollover-periods $MAX_ROLLOVER \
+--start-time "$START" \
+--claim-periods "$PERIODS" \
+--claim-period-days "$PERIOD_LENGTH" \
+--expire-days "$EXPIRE" \
+--max-rollover-periods "$MAX_ROLLOVER" \
 --qualifying-actions "{\"qualifying_actions\":[$ACTIONS]}" \
 --chain-id "chain-local" \
 --gas auto \
 --gas-adjustment 1.5 \
 --gas-prices 1905nhash \
---from $ADDRESS \
--y
+-y \
+--from "$ADDRESS" \
